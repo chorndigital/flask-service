@@ -1,0 +1,54 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environment
+venv/
+ENV/
+.venv/
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+*.sqlite3
+*.db
+
+# Unit test / coverage reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+pytest_cache/
+.tox/
+.mypy_cache/
+.pytest_cache/
+*.pytest_cache
+
+# Flask/SQLAlchemy migrations
+migrations/versions/*.pyc
+migrations/*.log
+
+# Environment files
+.env
+!.env.example
+
+# Docker
+*.pid
+*.seed
+*.tar
+*.bak
+*.tmp
+docker-compose.override.yml
+
+# OS files
+.DS_Store
+Thumbs.db
