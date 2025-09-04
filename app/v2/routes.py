@@ -9,7 +9,10 @@ from app.models import Post
 @jwt_required()
 @cache.cached(timeout=60, key_prefix="v2_posts_list")
 def list_posts():
-    posts = Post.query.all()
+    posts = db.session.execute(db.select(Post)).scalars().all()
+    if not posts:
+        abort(404, description="Post not found")
+
     return jsonify([p.to_dict() for p in posts]), 200
 
 
@@ -17,7 +20,10 @@ def list_posts():
 @jwt_required()
 def get_post(post_id):
     user_id = int(get_jwt_identity())
-    post = Post.query.get_or_404(post_id)
+    post = db.session.get(Post, post_id)
+    if not post:
+        abort(404, description="Post not found")
+
     return jsonify(post.to_dict()), 200
 
 
@@ -38,7 +44,10 @@ def create_post():
 @jwt_required()
 def update_post(post_id):
     _ = get_jwt_identity()
-    post = Post.query.get_or_404(post_id)
+    post = db.session.get(Post, post_id)
+    if not post:
+        abort(404, description="Post not found")
+
     data = request.get_json() or {}
     for k in ("userId", "title", "body"):
         if k in data:
@@ -52,7 +61,10 @@ def update_post(post_id):
 @jwt_required()
 def delete_post(post_id):
     _ = get_jwt_identity()
-    post = Post.query.get_or_404(post_id)
+    post = db.session.get(Post, post_id)
+    if not post:
+        abort(404, description="Post not found")
+
     db.session.delete(post)
     db.session.commit()
     cache.delete("v2_posts_list")
