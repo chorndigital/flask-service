@@ -5,7 +5,8 @@
 
 **Flask REST API** project using:
 
-- **Application Factory Pattern**
+- **Application Factory Pattern** create_app function (and the project layout around it) is the core of the Application
+  Factory Pattern.
 - **Blueprints** with versioning (`/api/v1` and `/api/v2`)
 - **Flask-SQLAlchemy** + **Flask-Migrate** (DB migrations)
 - **JWT Authentication** for `/api/v2`
